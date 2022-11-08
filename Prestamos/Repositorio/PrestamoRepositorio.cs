@@ -32,7 +32,7 @@ namespace Prestamos.Repositorio
                 if (b != null)
                 {
                     b.Esta_reservado = false;
-                    await _db.Reservas.Update(b);
+                    _db.Reservas.Update(b);
                 }
 
                 prestamo.Id_usuario = a.Id_usuario;
