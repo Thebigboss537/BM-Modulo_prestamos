@@ -26,10 +26,15 @@ namespace Prestamos.Repositorio
             else
             {
                 var a = _db.Usuarios.Where(e => e.Cedula == prestamoDto.Cedula).FirstOrDefault();
-                if (a == null)
-                {
 
+                Reserva b = _db.Reservas.Where(e => e.Id_material == prestamo.Id_material && e.Id_usuario == a.Id_usuario && e.Esta_reservado==true).FirstOrDefault();
+
+                if (b != null)
+                {
+                    b.Esta_reservado = false;
+                    await _db.Reservas.Update(b);
                 }
+
                 prestamo.Id_usuario = a.Id_usuario;
                 prestamo.Fecha_prestamo = DateTime.Now;
                 prestamo.Fecha_limite = DateTime.Now.AddDays(10);
